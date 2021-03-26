@@ -82,4 +82,42 @@ class _HeaderDiagonalPainter extends CustomPainter {
 
 }
 
+class HeaderTrianguloDerecho extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+
+      child: CustomPaint(
+        painter: _HeaderTrianguloDerechoPainter(),
+      ),
+    );
+  }
+}
+
+class _HeaderTrianguloDerechoPainter extends CustomPainter{
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = new Paint();
+    final path = new Path();
+
+    // Propiedaes del paint
+    paint.color = Color( 0xFF615AAB );
+    paint.style = PaintingStyle.fill;
+
+    // Dibujar con el path y el paint; El path por defecto esta en (0, 0)
+    path.lineTo(0, size.height);
+    path.lineTo(size.width, size.height);
+
+    canvas.drawPath(path, paint);
+
+  }
+  
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+
+}
+
 
