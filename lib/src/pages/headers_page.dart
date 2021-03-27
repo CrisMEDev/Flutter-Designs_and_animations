@@ -9,7 +9,7 @@ class HeadersPage extends StatelessWidget {
       // body: HeaderCuadrado(),
       // body: HeaderBordesRedondeados(),
       // body: HeaderTrianguloDerecho(),
-      body: HeaderCurvoAfuera(),
+      body: HeaderWaves(),
     );
   }
 }

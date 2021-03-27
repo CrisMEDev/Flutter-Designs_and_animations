@@ -202,3 +202,43 @@ class _HeaderCurvoAfueraPainter extends CustomPainter{
 
 }
 
+class HeaderWaves extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+
+      child: CustomPaint(
+        painter: _HeaderWavesPainter(),
+      ),
+    );
+  }
+}
+
+class _HeaderWavesPainter extends CustomPainter{
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = new Paint();
+    final path = new Path();
+
+    // Propiedades
+    paint.color = Color( 0xFF615AAB );
+    paint.style = PaintingStyle.fill;
+
+    // Camino del lienzo
+    path.lineTo(0, size.height / 2.75);
+    path.quadraticBezierTo(size.width / 4, size.height / 2.35, size.width / 2, size.height / 2.75);
+    path.quadraticBezierTo(size.width * 3 / 4, size.height / 3.15, size.width, size.height / 2.75);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, paint);
+  }
+  
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+
