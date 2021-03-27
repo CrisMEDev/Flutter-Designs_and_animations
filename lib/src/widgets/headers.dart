@@ -242,3 +242,71 @@ class _HeaderWavesPainter extends CustomPainter{
 
 }
 
+class HeaderWavesGradient extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+
+      child: CustomPaint(
+        painter: _HeaderWavesGradientPainter(),
+      ),
+    );
+  }
+}
+
+class _HeaderWavesGradientPainter extends CustomPainter{
+  @override
+  void paint(Canvas canvas, Size size) {
+
+    final Rect rect = new Rect.fromCircle(
+      center: Offset(165.0, 55.0),  // El gradiente está de manera horizontal, por eso dy no se ve afectado
+      radius: 180
+    );
+
+    final Gradient gradiente = new LinearGradient(  // CircularGradient()
+
+      // Poner gradiente en vertical
+      // begin: Alignment.topCenter,
+      // end: Alignment.bottomCenter,
+
+      colors: [
+        Color( 0xFF6D05E8 ),
+        Color( 0xFFC012FF ),
+        Color( 0xFF6D05FA ),
+      ],
+
+      stops: [  // Puntos porcentuales donde queremos que cada color trabaje, basados en el rango establecido en
+                // el center del rect, oscila entre 0.0 y 1.0. En este caso, 3 colores por tanto 3 PUNTOS
+        0.2,
+        0.5,
+        1.0
+
+      ]
+    );
+
+
+    final paint = new Paint()..shader = gradiente.createShader(rect);
+    final path = new Path();
+
+    // Propiedades
+    // paint.color = Colors.red; // Se ignora el color por el uso del shader
+    paint.style = PaintingStyle.fill;
+
+    // Camino del lienzo
+    path.lineTo(0, size.height / 2.75);
+    path.quadraticBezierTo(size.width / 4, size.height / 2.35, size.width / 2, size.height / 2.75);
+    path.quadraticBezierTo(size.width * 3 / 4, size.height / 3.15, size.width, size.height / 2.75);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, paint);
+  }
+  
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+
