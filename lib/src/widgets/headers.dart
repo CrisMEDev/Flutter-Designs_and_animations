@@ -144,6 +144,7 @@ class _HeaderPicoAdentroPainter extends CustomPainter{
     // Propiedades
     paint.color = Color( 0xFF615AAB );
     paint.style = PaintingStyle.fill;
+
     // Dibujar con el path y el paint; El path por defecto esta en (0, 0)
     path.lineTo(0, size.height / 3);
     path.lineTo(size.width / 2, size.height / 3.75);
@@ -159,5 +160,45 @@ class _HeaderPicoAdentroPainter extends CustomPainter{
 
 }
 
+class HeaderCurvoAfuera extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
 
+      child: CustomPaint(
+        painter: _HeaderCurvoAfueraPainter(),
+      ),
+    );
+  }
+}
+
+class _HeaderCurvoAfueraPainter extends CustomPainter{
+  @override
+  void paint(Canvas canvas, Size size) {
+      final paint = new Paint();
+      final path = new Path();
+
+      // Propiedades
+      paint.color = Color( 0xFF615AAB );
+      paint.style = PaintingStyle.fill;
+
+      // Camino del path
+      path.lineTo(0, size.height / 3);
+      path.quadraticBezierTo(size.width / 2, size.height / 2.25, size.width, size.height / 3);  // El primer punto solicitado es el eje de la curvatura
+                                                                  // El segundo es el punto donde termina
+      // path.lineTo(size.width, size.height / 3);  // Linea en vez de curvatura
+      path.lineTo(size.width, 0);
+
+
+      canvas.drawPath(path, paint);
+  }
+  
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
 
