@@ -18,15 +18,34 @@ class CuadradoAnimado extends StatefulWidget { // Se necesitara cambiar el estad
   _CuadradoAnimadoState createState() => _CuadradoAnimadoState();
 }
 
-class _CuadradoAnimadoState extends State<CuadradoAnimado> {
+class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProviderStateMixin {
+
+  AnimationController animationController;    // Es el que le dará las indicaciones a la animacion de como debe hacerlo
+  Animation<double> rotacion;                 // Controlar los valores que fluiran en la misma animacion
+
+  @override
+  void initState() {
+    animationController = new AnimationController(
+      vsync: this,
+      duration: Duration( milliseconds: 4000 )
+    );
+
+    rotacion = Tween( begin: 0.0, end: 2.0 ).animate(animationController);
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return _Rectangulo();
   }
 }
-
-
-
 
 class _Rectangulo extends StatelessWidget {
     @override
