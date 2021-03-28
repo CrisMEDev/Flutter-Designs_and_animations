@@ -30,6 +30,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
       duration: Duration( milliseconds: 4000 )
     );
 
+    // La rotación pasará de 0 a 2 en 4 segundos
     rotacion = Tween( begin: 0.0, end: 2.0 ).animate(animationController);
 
     super.initState();
@@ -43,7 +44,25 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    return _Rectangulo();
+
+    // Inicia la animacion
+    animationController.forward();
+
+    return AnimatedBuilder(
+      animation: animationController,
+      // child: _Rectangulo(),
+
+      builder: (BuildContext context, Widget child) {
+
+        // print(rotacion.value);
+
+        return Transform.rotate(
+          angle: rotacion.value,
+
+          child: _Rectangulo()
+        );
+      },
+    );
   }
 }
 
