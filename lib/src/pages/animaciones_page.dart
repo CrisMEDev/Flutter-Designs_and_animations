@@ -32,13 +32,17 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
     );
 
     // La rotación pasará de 0 a 1 vuelta en 4 segundos
-    rotacion = Tween( begin: 0.0, end: 2.0 * Math.pi ).animate(animationController);
+    rotacion = Tween( begin: 0.0, end: 2.0 * Math.pi ).animate(
+      // animationController
+      CurvedAnimation(parent: animationController, curve: Curves.bounceOut )
+    );
 
     animationController.addListener(() {
       print('Status: ${animationController.status}');
 
       if (animationController.status == AnimationStatus.completed){
-        animationController.reverse();
+        // animationController.reverse();
+        animationController.reset();
       }
 
     });
