@@ -39,7 +39,10 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
     );
 
     // La opacidad siempre va de cero a uno
-    opacidad = Tween( begin: 0.1, end: 1.0 ).animate(animationController);
+    opacidad = Tween( begin: 0.1, end: 1.0 ).animate(
+      // animationController
+      CurvedAnimation(parent: animationController, curve: Interval(0, 0.25, curve: Curves.bounceOut) ) // Para hacer la opacity en 25% de los 4000ms
+    );
 
     animationController.addListener(() {
       print('Status: ${animationController.status}');
