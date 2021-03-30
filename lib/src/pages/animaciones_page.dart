@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as Math;
 
 class AnimacionesPage extends StatelessWidget {
   @override
@@ -30,8 +31,17 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
       duration: Duration( milliseconds: 4000 )
     );
 
-    // La rotación pasará de 0 a 2 en 4 segundos
-    rotacion = Tween( begin: 0.0, end: 2.0 ).animate(animationController);
+    // La rotación pasará de 0 a 1 vuelta en 4 segundos
+    rotacion = Tween( begin: 0.0, end: 2.0 * Math.pi ).animate(animationController);
+
+    animationController.addListener(() {
+      print('Status: ${animationController.status}');
+
+      if (animationController.status == AnimationStatus.completed){
+        animationController.reverse();
+      }
+
+    });
 
     super.initState();
   }
