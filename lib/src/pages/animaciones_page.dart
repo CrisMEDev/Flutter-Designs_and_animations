@@ -25,6 +25,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
   Animation<double> rotacion;                 // Controlar los valores que fluiran en la misma animacion
   Animation<double> opacidad;
   Animation<double> moverDerecha;
+  Animation<double> agrandar;
 
   @override
   void initState() {
@@ -51,12 +52,18 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
       CurvedAnimation(parent: animationController, curve: Curves.easeOut )
     );
 
+    // Reducirlo desde 2 veces su tamaño original hasta cero
+    agrandar = Tween( begin: 2.0, end: 0.0 ).animate(
+      // animationController
+      CurvedAnimation(parent: animationController, curve: Curves.easeOut )
+    );
+
     animationController.addListener(() {
       print('Status: ${animationController.status}');
 
       if (animationController.status == AnimationStatus.completed){
         // animationController.reverse();
-        animationController.reset();
+        animationController.repeat();
       }
 
     });
@@ -91,7 +98,10 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
 
             child: Opacity(
               opacity: opacidad.value,
-              child: childRectangulo,
+              child: Transform.scale(
+                scale: agrandar.value,
+                child: childRectangulo
+              ),
             )
           ),
         );
