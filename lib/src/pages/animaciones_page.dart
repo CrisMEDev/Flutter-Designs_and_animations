@@ -24,6 +24,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
   AnimationController animationController;    // Es el que le dará las indicaciones a la animacion de como debe hacerlo
   Animation<double> rotacion;                 // Controlar los valores que fluiran en la misma animacion
   Animation<double> opacidad;
+  Animation<double> opacidadOut;
   Animation<double> moverDerecha;
   Animation<double> agrandar;
 
@@ -44,6 +45,11 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
     opacidad = Tween( begin: 0.1, end: 1.0 ).animate(
       // animationController
       CurvedAnimation(parent: animationController, curve: Interval(0, 0.25, curve: Curves.bounceOut) ) // Para hacer la opacity en 25% de los 4000ms
+    );
+
+    opacidadOut = Tween( begin: 0.0, end: 1.0 ).animate(
+      // animationController
+      CurvedAnimation(parent: animationController, curve: Interval(0.75, 1.0, curve: Curves.bounceOut) ) // Para hacer la opacity en 25% de los 4000ms
     );
 
     // Para mover 200 pixeles el cuadrado
@@ -100,7 +106,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
             angle: rotacion.value,
 
             child: Opacity(
-              opacity: opacidad.value,
+              opacity: opacidad.value - opacidadOut.value,
               child: Transform.scale(
                 scale: agrandar.value,
                 child: childRectangulo
