@@ -24,6 +24,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
   AnimationController animationController;    // Es el que le dará las indicaciones a la animacion de como debe hacerlo
   Animation<double> rotacion;                 // Controlar los valores que fluiran en la misma animacion
   Animation<double> opacidad;
+  Animation<double> moverDerecha;
 
   @override
   void initState() {
@@ -42,6 +43,12 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
     opacidad = Tween( begin: 0.1, end: 1.0 ).animate(
       // animationController
       CurvedAnimation(parent: animationController, curve: Interval(0, 0.25, curve: Curves.bounceOut) ) // Para hacer la opacity en 25% de los 4000ms
+    );
+
+    // Para mover 200 pixeles el cuadrado
+    moverDerecha = Tween( begin: 0.0, end: 200.0 ).animate(
+      // animationController
+      CurvedAnimation(parent: animationController, curve: Curves.easeOut )
     );
 
     animationController.addListener(() {
@@ -77,13 +84,16 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
 
         // print(rotacion.value);
 
-        return Transform.rotate(
-          angle: rotacion.value,
+        return Transform.translate(
+          offset: Offset( moverDerecha.value , 0),
+          child: Transform.rotate(
+            angle: rotacion.value,
 
-          child: Opacity(
-            opacity: opacidad.value,
-            child: childRectangulo,
-          )
+            child: Opacity(
+              opacity: opacidad.value,
+              child: childRectangulo,
+            )
+          ),
         );
       },
     );
@@ -99,7 +109,7 @@ class _Rectangulo extends StatelessWidget {
        decoration: BoxDecoration(
          color: Colors.blue
        ),
-     );
+    );
    }
 }
 
