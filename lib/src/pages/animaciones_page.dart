@@ -59,11 +59,11 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
     );
 
     animationController.addListener(() {
-      print('Status: ${animationController.status}');
+      // print('Status: ${animationController.status}');
 
       if (animationController.status == AnimationStatus.completed){
         // animationController.reverse();
-        animationController.repeat();
+        animationController.reset();
       }
 
     });
@@ -89,7 +89,10 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado> with SingleTickerProv
 
       builder: (BuildContext context, Widget childRectangulo) {
 
+        // print(opacidad.value);
         // print(rotacion.value);
+        // print('Opacidad: ${opacidad.status}');
+        // print('Rotacion: ${rotacion.status}');
 
         return Transform.translate(
           offset: Offset( moverDerecha.value , 0),
