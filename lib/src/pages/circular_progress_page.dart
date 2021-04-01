@@ -1,15 +1,49 @@
 import 'package:flutter/material.dart';
-
 import 'dart:math' as Math;
+import 'dart:ui';
+
+
 
 class CircularProgressPage extends StatefulWidget {
   @override
   _CircularProgressPageState createState() => _CircularProgressPageState();
 }
 
-class _CircularProgressPageState extends State<CircularProgressPage> {
+class _CircularProgressPageState extends State<CircularProgressPage> with SingleTickerProviderStateMixin{
 
-  double porcentaje = 10;
+  double porcentaje = 0.0;
+  double nuevoPorcentaje = 0.0;
+
+  // Objetos para animar el circularProgress
+  AnimationController animationController;
+  Animation animacion;
+
+  @override
+  void initState() {
+    
+    animationController = new AnimationController(
+      vsync: this,
+      duration: Duration( milliseconds: 2000 )
+    );
+
+    animationController.addListener(() {
+
+      // print('Valor controller: ${animationController.value}');
+      setState(() {
+        // Para cada valor en el rango porcentaje-nuevoPorcentaje; aplica una relacion 1 a 1 por cada controller.value
+        porcentaje = lerpDouble(porcentaje, nuevoPorcentaje, animationController.value);
+      });
+
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +54,12 @@ class _CircularProgressPageState extends State<CircularProgressPage> {
           backgroundColor: Colors.pink,
           onPressed: (){
             setState(() {
-              porcentaje += 10;
-              if ( porcentaje > 100 ) porcentaje = 0;
+              porcentaje = nuevoPorcentaje;
+              nuevoPorcentaje += 10;
+              if ( nuevoPorcentaje > 100 ) {nuevoPorcentaje = porcentaje = 0;}
+
+
+              animationController.forward( from: 0.0 );
             });
           }
 
