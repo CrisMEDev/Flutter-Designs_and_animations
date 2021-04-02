@@ -12,19 +12,54 @@ class RadialProgress extends StatefulWidget {
   _RadialProgressState createState() => _RadialProgressState();
 }
 
-class _RadialProgressState extends State<RadialProgress> {
+class _RadialProgressState extends State<RadialProgress> with SingleTickerProviderStateMixin{
+
+  AnimationController animationController;
+  double porcentajeAnterior;
+
+  @override
+  void initState() {
+    
+    porcentajeAnterior = widget.porcentaje;
+
+    animationController = new AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // child: Text( widget.porcentaje.toString() ),       // widget hace referencia a el mismo para usar el porcentaje
-      padding: EdgeInsets.all( 5.0 ),
-      width: double.infinity,
-      height: double.infinity,
 
-      child: CustomPaint(
-        painter: _MiRadialProgressPainter(porcentaje: widget.porcentaje),
-      ),
+    animationController.forward( from: 0.0 ); // from 0.0 para que cada vez que se reconstruya el widget empiece desde 0
+    final diferenciaAnimar = widget.porcentaje - porcentajeAnterior;
+    porcentajeAnterior = widget.porcentaje;
+
+    return AnimatedBuilder(
+      animation: animationController,
+      
+      builder: ( context, child ){
+        return Container(
+          // child: Text( widget.porcentaje.toString() ),       // widget hace referencia a el mismo para usar el porcentaje
+          padding: EdgeInsets.all( 5.0 ),
+          width: double.infinity,
+          height: double.infinity,
+
+          child: CustomPaint(
+            painter: _MiRadialProgressPainter(
+              porcentaje: widget.porcentaje - diferenciaAnimar + ( diferenciaAnimar * animationController.value
+            )),
+          ),
+        );
+      }
     );
+ 
   }
 }
 
