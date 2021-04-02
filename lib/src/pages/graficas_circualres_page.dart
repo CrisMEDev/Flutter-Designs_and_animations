@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:backgrounds_custom_painter/src/widgets/radial_progress.dart';
+
 class GraficaCircularPage extends StatefulWidget {
   @override
   _GraficaCircularPageState createState() => _GraficaCircularPageState();
@@ -22,7 +24,13 @@ class _GraficaCircularPageState extends State<GraficaCircularPage> {
         }
       ),
       body: Center(
-        child: Text('$porcentaje %', style: TextStyle( fontSize: 40 ),),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.40,
+          height: MediaQuery.of(context).size.width * 0.40,
+          color: Colors.red,
+
+          child: RadialProgress( porcentaje: 40 ),
+        )
       ),
     );
   }
