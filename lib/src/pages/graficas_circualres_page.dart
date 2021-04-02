@@ -27,9 +27,9 @@ class _GraficaCircularPageState extends State<GraficaCircularPage> {
         child: Container(
           width: MediaQuery.of(context).size.width * 0.40,
           height: MediaQuery.of(context).size.width * 0.40,
-          color: Colors.red,
+          // color: Colors.red,
 
-          child: RadialProgress( porcentaje: 40 ),
+          child: RadialProgress( porcentaje: porcentaje ),
         )
       ),
     );
