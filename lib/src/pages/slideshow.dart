@@ -35,7 +35,7 @@ class _Dots extends StatelessWidget {
         children: [
           _Dot(  ),
           _Dot(  ),
-          _Dot(  )
+          _Dot(  ),
         ],
       ),
     );
