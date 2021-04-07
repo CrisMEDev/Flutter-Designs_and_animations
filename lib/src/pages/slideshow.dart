@@ -61,12 +61,16 @@ class _Dot extends StatelessWidget {
 
     final double paginaActualProvider = Provider.of<SliderModel>(context).paginaActual;
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration( milliseconds: 500 ),
+      curve: Curves.decelerate,
+
       width: 15,
       height: 15,
       margin: EdgeInsets.symmetric( horizontal: 5.0 ),
       decoration: BoxDecoration(
-        color: ( paginaActual == paginaActualProvider ) ? Colors.blue : Colors.grey,
+        color: ( paginaActualProvider >= paginaActual -  0.5 && paginaActualProvider < paginaActual + 0.5 )
+                ? Colors.blue : Colors.grey,
         shape: BoxShape.circle
       ),
     );
