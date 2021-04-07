@@ -10,8 +10,49 @@ class SlideshowPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: _Slides(),
-        ),
+          child: Column(
+            children: [
+              Expanded(
+                child: _Slides()
+              ),
+              _Dots(),
+            ],
+          )
+        )
+      ),
+    );
+  }
+}
+
+class _Dots extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.07,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _Dot(),
+          _Dot(),
+          _Dot()
+        ],
+      ),
+    );
+  }
+}
+
+class _Dot extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 15,
+      height: 15,
+      margin: EdgeInsets.symmetric( horizontal: 5.0 ),
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        shape: BoxShape.circle
       ),
     );
   }
@@ -23,7 +64,7 @@ class _Slides extends StatelessWidget {
 
     return Container(
       child: PageView(
-        physics: ScrollPhysics(), // Elimina la animación azul presentada en android cuando no hay mas contenido
+        physics: BouncingScrollPhysics(), // Elimina la animación azul presentada en android cuando no hay mas contenido
         children: [
           _Slide( assetSvg: 'assets/svg/slide-1.svg', ),
 
