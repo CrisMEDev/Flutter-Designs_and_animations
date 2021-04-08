@@ -225,25 +225,23 @@ class _SliderModel with ChangeNotifier{
   Color get dotPrimaryColor => this._dotPrimaryColor;
         set dotPrimaryColor( Color colorPrimario ){
           this._dotPrimaryColor = colorPrimario;
-          notifyListeners();
         }
 
   Color get dotSecondaryColor => this._dotSecondaryColor;
         set dotSecondaryColor( Color colorSecundario ){
           this._dotSecondaryColor = colorSecundario;
-          notifyListeners();
         }
   
   double get dotPrimarySize => _dotPrimarySize;
          set dotPrimarySize( double size ){
            this._dotPrimarySize = size;
-           notifyListeners();
+
          }
   
   double get dotSecondarySize => _dotSecondarySize;
          set dotSecondarySize( double size ){
            this._dotSecondarySize = size;
-           notifyListeners();
+
          }
 
 }
