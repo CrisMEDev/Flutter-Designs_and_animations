@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:backgrounds_custom_painter/src/models/slider_model.dart';
 
-// TODO: BORRAR
-import 'package:flutter_svg/svg.dart';
-
 class Slideshow extends StatelessWidget {
+
+  final List<Widget> slides;
+
+  const Slideshow({
+    
+    @required this.slides
+  });
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -16,7 +21,7 @@ class Slideshow extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: _Slides()
+              child: _Slides( slides: this.slides )
             ),
             _Dots(),
           ],
@@ -74,6 +79,10 @@ class _Dot extends StatelessWidget {
 
 class _Slides extends StatefulWidget {
 
+  final List<Widget> slides;
+
+  const _Slides({this.slides});
+
   @override
   __SlidesState createState() => __SlidesState();
 }
@@ -86,12 +95,7 @@ class __SlidesState extends State<_Slides> {
   void initState() {
     
     pageController.addListener(() {
-
-      // print('Página actual: ${ pageController.page }');
-
-      // Actualizar el provider, SliderModel
       Provider.of<SliderModel>(context, listen: false).paginaActual = pageController.page;
-
     });
 
     super.initState();
@@ -111,13 +115,8 @@ class __SlidesState extends State<_Slides> {
         controller: pageController,
         
         physics: BouncingScrollPhysics(), // Elimina la animación azul presentada en android cuando no hay mas contenido
-        children: [
-          _Slide( assetSvg: 'assets/svg/slide-1.svg', ),
-
-          _Slide( assetSvg: 'assets/svg/slide-2.svg', ),
-
-          _Slide( assetSvg: 'assets/svg/slide-3.svg', )
-        ],
+        
+        children: widget.slides.map( ( slide ) => _Slide(slide: slide) ).toList(),
       ),
     );
   }
@@ -125,9 +124,9 @@ class __SlidesState extends State<_Slides> {
 
 class _Slide extends StatelessWidget {
 
-  final String assetSvg;
+  final Widget slide;
 
-  const _Slide({@required this.assetSvg});
+  const _Slide({this.slide});
 
   @override
   Widget build(BuildContext context) {
@@ -136,10 +135,7 @@ class _Slide extends StatelessWidget {
       height: double.infinity,
       padding: EdgeInsets.all(30.0),
 
-      child: SvgPicture.asset(
-        assetSvg,
-        semanticsLabel: 'Logo'
-      ),
+      child: slide
     );
   }
 }
