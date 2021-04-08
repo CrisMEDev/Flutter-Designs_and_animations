@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:backgrounds_custom_painter/src/models/slider_model.dart';
 
 class Slideshow extends StatelessWidget {
 
@@ -20,29 +19,52 @@ class Slideshow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => new SliderModel(),
+      create: (_) => new _SliderModel(),
 
       child: SafeArea(
         child: Center(
-          child: Column(
-            children: [
-              if ( dotsLocation ) _Dots( 
-                dotsNumber: this.slides.length,
-                dotPrimaryColor: this.dotPrimaryColor,
-                dotSecondaryColor: this.dotSecondaryColor,
-              ),
-              Expanded(
-                child: _Slides( slides: this.slides )
-              ),
-              if ( !dotsLocation ) _Dots( 
-                dotsNumber: this.slides.length,
-                dotPrimaryColor: this.dotPrimaryColor,
-                dotSecondaryColor: this.dotSecondaryColor,
-              ),
-            ],
+          child: Builder(
+            builder: (BuildContext context){  // El builder construye primero los widgets superiores
+                                              // y despues trabaja en base al context, en este caso es usado
+                                              // para instanciar el provider en el mismo nivel donde se crea y
+                                              // poder usar los colores primario y secundario
+              
+              Provider.of<_SliderModel>(context).dotPrimaryColor = this.dotPrimaryColor;
+              Provider.of<_SliderModel>(context).dotSecondaryColor = this.dotSecondaryColor;
+
+              return _CrearEstructuraSlideshow(dotsLocation: dotsLocation, slides: slides);
+            }
+          ),
           )
-        ),
       ),
+    );
+  }
+}
+
+class _CrearEstructuraSlideshow extends StatelessWidget {
+  const _CrearEstructuraSlideshow({
+    Key key,
+    @required this.dotsLocation,
+    @required this.slides,
+  }) : super(key: key);
+
+  final bool dotsLocation;
+  final List<Widget> slides;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if ( dotsLocation ) _Dots( 
+          dotsNumber: this.slides.length,
+        ),
+        Expanded(
+          child: _Slides( slides: this.slides )
+        ),
+        if ( !dotsLocation ) _Dots( 
+          dotsNumber: this.slides.length,
+        ),
+      ],
     );
   }
 }
@@ -50,13 +72,9 @@ class Slideshow extends StatelessWidget {
 class _Dots extends StatelessWidget {
 
   final int dotsNumber;
-  final Color dotPrimaryColor;
-  final Color dotSecondaryColor;
 
   const _Dots({
     this.dotsNumber,
-    this.dotPrimaryColor,
-    this.dotSecondaryColor
   });
 
   @override
@@ -71,8 +89,6 @@ class _Dots extends StatelessWidget {
         // Método generate de clase List permite generar una lista de objetos en base a una longitud
         children: List.generate(dotsNumber, ( dot ) => _Dot(
           paginaActual: dot.toDouble(),
-          dotPrimaryColor: this.dotPrimaryColor,
-          dotSecondaryColor: this.dotSecondaryColor,
         ))
       ),
     );
@@ -82,19 +98,15 @@ class _Dots extends StatelessWidget {
 class _Dot extends StatelessWidget {
 
   final double paginaActual;
-  final Color dotPrimaryColor;
-  final Color dotSecondaryColor;
 
   const _Dot({
     @required this.paginaActual,
-    this.dotPrimaryColor,
-    this.dotSecondaryColor
   });
 
   @override
   Widget build(BuildContext context) {
 
-    final double paginaActualProvider = Provider.of<SliderModel>(context).paginaActual;
+    final slideshowModel = Provider.of<_SliderModel>(context);
 
     return AnimatedContainer(
       duration: Duration( milliseconds: 500 ),
@@ -104,8 +116,8 @@ class _Dot extends StatelessWidget {
       height: 15,
       margin: EdgeInsets.symmetric( horizontal: 5.0 ),
       decoration: BoxDecoration(
-        color: ( paginaActualProvider >= paginaActual -  0.5 && paginaActualProvider < paginaActual + 0.5 )
-                ? this.dotPrimaryColor : this.dotSecondaryColor,
+        color: ( slideshowModel.paginaActual >= paginaActual -  0.5 && slideshowModel.paginaActual < paginaActual + 0.5 )
+                ? slideshowModel.dotPrimaryColor : slideshowModel.dotSecondaryColor,
         shape: BoxShape.circle
       ),
     );
@@ -130,7 +142,7 @@ class __SlidesState extends State<_Slides> {
   void initState() {
     
     pageController.addListener(() {
-      Provider.of<SliderModel>(context, listen: false).paginaActual = pageController.page;
+      Provider.of<_SliderModel>(context, listen: false).paginaActual = pageController.page;
     });
 
     super.initState();
@@ -173,6 +185,32 @@ class _Slide extends StatelessWidget {
       child: slide
     );
   }
+}
+
+class _SliderModel with ChangeNotifier{
+
+  double _paginaActual = 0;
+  Color _dotPrimaryColor = Colors.blue;
+  Color _dotSecondaryColor = Colors.grey;
+
+  double get paginaActual => this._paginaActual;
+         set paginaActual(double pagina) {
+           this._paginaActual = pagina;
+           notifyListeners();
+        }
+
+  Color get dotPrimaryColor => this._dotPrimaryColor;
+        set dotPrimaryColor( Color colorPrimario ){
+          this._dotPrimaryColor = colorPrimario;
+          notifyListeners();
+        }
+
+  Color get dotSecondaryColor => this._dotSecondaryColor;
+        set dotSecondaryColor( Color colorSecundario ){
+          this._dotSecondaryColor = colorSecundario;
+          notifyListeners();
+        }
+
 }
 
 
