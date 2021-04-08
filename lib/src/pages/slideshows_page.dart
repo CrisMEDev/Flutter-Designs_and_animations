@@ -8,7 +8,11 @@ class SlideshowPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.purple[100],
         body: Slideshow(
+          dotsLocation: true,
+          dotPrimaryColor: Colors.red,
+          dotSecondaryColor: Colors.black,
           slides: [
             SvgPicture.asset('assets/svg/slide-1.svg'),
             SvgPicture.asset('assets/svg/slide-2.svg'),

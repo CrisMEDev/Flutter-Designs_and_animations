@@ -6,10 +6,15 @@ import 'package:backgrounds_custom_painter/src/models/slider_model.dart';
 class Slideshow extends StatelessWidget {
 
   final List<Widget> slides;
+  final bool dotsLocation;
+  final Color dotPrimaryColor;
+  final Color dotSecondaryColor;
 
   const Slideshow({
-    
-    @required this.slides
+    @required this.slides,
+    this.dotsLocation = false,
+    this.dotPrimaryColor = Colors.blue,
+    this.dotSecondaryColor = Colors.grey,
   });
 
   @override
@@ -17,15 +22,26 @@ class Slideshow extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => new SliderModel(),
 
-      child: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: _Slides( slides: this.slides )
-            ),
-            _Dots( dotsNumber: this.slides.length, ),
-          ],
-        )
+      child: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              if ( dotsLocation ) _Dots( 
+                dotsNumber: this.slides.length,
+                dotPrimaryColor: this.dotPrimaryColor,
+                dotSecondaryColor: this.dotSecondaryColor,
+              ),
+              Expanded(
+                child: _Slides( slides: this.slides )
+              ),
+              if ( !dotsLocation ) _Dots( 
+                dotsNumber: this.slides.length,
+                dotPrimaryColor: this.dotPrimaryColor,
+                dotSecondaryColor: this.dotSecondaryColor,
+              ),
+            ],
+          )
+        ),
       ),
     );
   }
@@ -34,8 +50,14 @@ class Slideshow extends StatelessWidget {
 class _Dots extends StatelessWidget {
 
   final int dotsNumber;
+  final Color dotPrimaryColor;
+  final Color dotSecondaryColor;
 
-  const _Dots({this.dotsNumber});
+  const _Dots({
+    this.dotsNumber,
+    this.dotPrimaryColor,
+    this.dotSecondaryColor
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +69,11 @@ class _Dots extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
 
         // Método generate de clase List permite generar una lista de objetos en base a una longitud
-        children: List.generate(dotsNumber, ( dot ) => _Dot(paginaActual: dot.toDouble()))
+        children: List.generate(dotsNumber, ( dot ) => _Dot(
+          paginaActual: dot.toDouble(),
+          dotPrimaryColor: this.dotPrimaryColor,
+          dotSecondaryColor: this.dotSecondaryColor,
+        ))
       ),
     );
   }
@@ -56,8 +82,14 @@ class _Dots extends StatelessWidget {
 class _Dot extends StatelessWidget {
 
   final double paginaActual;
+  final Color dotPrimaryColor;
+  final Color dotSecondaryColor;
 
-  const _Dot({@required this.paginaActual});
+  const _Dot({
+    @required this.paginaActual,
+    this.dotPrimaryColor,
+    this.dotSecondaryColor
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +105,7 @@ class _Dot extends StatelessWidget {
       margin: EdgeInsets.symmetric( horizontal: 5.0 ),
       decoration: BoxDecoration(
         color: ( paginaActualProvider >= paginaActual -  0.5 && paginaActualProvider < paginaActual + 0.5 )
-                ? Colors.blue : Colors.grey,
+                ? this.dotPrimaryColor : this.dotSecondaryColor,
         shape: BoxShape.circle
       ),
     );
