@@ -23,7 +23,7 @@ class Slideshow extends StatelessWidget {
             Expanded(
               child: _Slides( slides: this.slides )
             ),
-            _Dots(),
+            _Dots( dotsNumber: this.slides.length, ),
           ],
         )
       ),
@@ -32,6 +32,11 @@ class Slideshow extends StatelessWidget {
 }
 
 class _Dots extends StatelessWidget {
+
+  final int dotsNumber;
+
+  const _Dots({this.dotsNumber});
+
   @override
   Widget build(BuildContext context) {
 
@@ -40,11 +45,9 @@ class _Dots extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.07,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _Dot( paginaActual: 0.0, ),
-          _Dot( paginaActual: 1.0, ),
-          _Dot( paginaActual: 2.0, ),
-        ],
+
+        // Método generate de clase List permite generar una lista de objetos en base a una longitud
+        children: List.generate(dotsNumber, ( dot ) => _Dot(paginaActual: dot.toDouble()))
       ),
     );
   }
@@ -115,7 +118,7 @@ class __SlidesState extends State<_Slides> {
         controller: pageController,
         
         physics: BouncingScrollPhysics(), // Elimina la animación azul presentada en android cuando no hay mas contenido
-        
+
         children: widget.slides.map( ( slide ) => _Slide(slide: slide) ).toList(),
       ),
     );
