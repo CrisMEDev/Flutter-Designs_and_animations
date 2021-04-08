@@ -9,18 +9,40 @@ class SlideshowPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.purple[100],
-        body: Slideshow(
-          dotsLocation: true,
-          dotPrimaryColor: Colors.red,
-          dotSecondaryColor: Colors.black,
-          dotPrimarySize: 14.0,
-          dotSecondarySize: 10.0,
-          slides: [
-            SvgPicture.asset('assets/svg/slide-1.svg'),
-            SvgPicture.asset('assets/svg/slide-2.svg'),
-            SvgPicture.asset('assets/svg/slide-3.svg'),
-            SvgPicture.asset('assets/svg/slide-4.svg'),
-            SvgPicture.asset('assets/svg/slide-5.svg'),
+        body: Column(
+          children: [
+            Expanded(
+              flex: 7,
+              child: Slideshow(
+                dotsLocation: true,
+                dotPrimaryColor: Colors.red,
+                dotSecondaryColor: Colors.black,
+                dotPrimarySize: 14.0,
+                dotSecondarySize: 10.0,
+                slides: [
+                  SvgPicture.asset('assets/svg/slide-1.svg'),
+                  SvgPicture.asset('assets/svg/slide-2.svg'),
+                  SvgPicture.asset('assets/svg/slide-3.svg'),
+                  SvgPicture.asset('assets/svg/slide-4.svg'),
+                  SvgPicture.asset('assets/svg/slide-5.svg'),
+                ],
+              ),
+            ),
+
+            Expanded(
+              flex: 3,
+              child: Slideshow(
+                dotPrimaryColor: Colors.red,
+                dotSecondaryColor: Colors.black,
+                dotPrimarySize: 14.0,
+                dotSecondarySize: 10.0,
+                slides: [
+                  SvgPicture.asset('assets/svg/slide-5.svg'),
+                  SvgPicture.asset('assets/svg/slide-4.svg'),
+                  SvgPicture.asset('assets/svg/slide-3.svg'),
+                ],
+              ),
+            )
           ],
         )
       ),
