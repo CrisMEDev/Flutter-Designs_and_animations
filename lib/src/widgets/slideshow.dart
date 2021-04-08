@@ -8,12 +8,16 @@ class Slideshow extends StatelessWidget {
   final bool dotsLocation;
   final Color dotPrimaryColor;
   final Color dotSecondaryColor;
+  final double dotPrimarySize;
+  final double dotSecondarySize;
 
   const Slideshow({
     @required this.slides,
-    this.dotsLocation = false,
-    this.dotPrimaryColor = Colors.blue,
+    this.dotsLocation      = false,
+    this.dotPrimaryColor   = Colors.blue,
     this.dotSecondaryColor = Colors.grey,
+    this.dotPrimarySize    = 15.0,
+    this.dotSecondarySize  = 15.0,
   });
 
   @override
@@ -31,6 +35,8 @@ class Slideshow extends StatelessWidget {
               
               Provider.of<_SliderModel>(context).dotPrimaryColor = this.dotPrimaryColor;
               Provider.of<_SliderModel>(context).dotSecondaryColor = this.dotSecondaryColor;
+              Provider.of<_SliderModel>(context).dotPrimarySize = this.dotPrimarySize;
+              Provider.of<_SliderModel>(context).dotSecondarySize = this.dotSecondarySize;
 
               return _CrearEstructuraSlideshow(dotsLocation: dotsLocation, slides: slides);
             }
@@ -107,17 +113,31 @@ class _Dot extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final slideshowModel = Provider.of<_SliderModel>(context);
+    double tamanio;
+    Color color;
+
+    if ( ( slideshowModel.paginaActual >= paginaActual -  0.5 && slideshowModel.paginaActual < paginaActual + 0.5 ) ){
+
+      tamanio = slideshowModel.dotPrimarySize;
+      color = slideshowModel.dotPrimaryColor;
+
+    } else {
+      
+      tamanio = slideshowModel.dotSecondarySize;
+      color = slideshowModel.dotSecondaryColor;
+
+    }
+
 
     return AnimatedContainer(
       duration: Duration( milliseconds: 500 ),
       curve: Curves.decelerate,
-
-      width: 15,
-      height: 15,
+      
+      width: tamanio,
+      height: tamanio,
       margin: EdgeInsets.symmetric( horizontal: 5.0 ),
       decoration: BoxDecoration(
-        color: ( slideshowModel.paginaActual >= paginaActual -  0.5 && slideshowModel.paginaActual < paginaActual + 0.5 )
-                ? slideshowModel.dotPrimaryColor : slideshowModel.dotSecondaryColor,
+        color: color,
         shape: BoxShape.circle
       ),
     );
@@ -192,6 +212,9 @@ class _SliderModel with ChangeNotifier{
   double _paginaActual = 0;
   Color _dotPrimaryColor = Colors.blue;
   Color _dotSecondaryColor = Colors.grey;
+  double _dotPrimarySize = 15.0;
+  double _dotSecondarySize = 15.0;
+
 
   double get paginaActual => this._paginaActual;
          set paginaActual(double pagina) {
@@ -210,6 +233,18 @@ class _SliderModel with ChangeNotifier{
           this._dotSecondaryColor = colorSecundario;
           notifyListeners();
         }
+  
+  double get dotPrimarySize => _dotPrimarySize;
+         set dotPrimarySize( double size ){
+           this._dotPrimarySize = size;
+           notifyListeners();
+         }
+  
+  double get dotSecondarySize => _dotSecondarySize;
+         set dotSecondarySize( double size ){
+           this._dotSecondarySize = size;
+           notifyListeners();
+         }
 
 }
 
