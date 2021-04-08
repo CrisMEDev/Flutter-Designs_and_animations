@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:backgrounds_custom_painter/src/pages/slideshow.dart';
+import 'package:backgrounds_custom_painter/src/pages/slideshows_page.dart';
+// import 'package:backgrounds_custom_painter/labs/slideshow_page.dart';
 // import 'package:backgrounds_custom_painter/src/pages/graficas_circualres_page.dart';
 // import 'package:backgrounds_custom_painter/src/pages/headers_page.dart';
 // import 'package:backgrounds_custom_painter/src/retos/cuadrado_animado_page.dart';
