@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PinterestButton {
   final Function onPressed;
@@ -24,7 +25,13 @@ class PinterestMenu extends StatelessWidget {
 
 
     return Center(
-      child: _PinterestMenuBackground( child: _MenuItems( menuItems: items, ), ),
+      child: ChangeNotifierProvider(
+        create: (_) => new _MenuModel(),
+
+        child: _PinterestMenuBackground(
+          child: _MenuItems( menuItems: items, ),
+        ),
+      ),
     );
   }
 }
@@ -86,17 +93,35 @@ class _PinterestMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final itemSeleccionado = Provider.of<_MenuModel>(context).itemSeleccionado;
+
     return GestureDetector(
-      onTap: item.onPressed,
+      onTap: (){
+        Provider.of<_MenuModel>(context, listen: false).itemSeleccionado = index;
+        item.onPressed();
+      },
       behavior: HitTestBehavior.translucent,  // Para el caso que en algunos dispositivos el onTap no funcione bien
 
       child: Container(
         child: Icon(
           item.icon,
-          size: 28.0,
-          color: Colors.blueGrey,
+          size: ( itemSeleccionado == index ) ? 32.0 : 28.0,
+          color: ( itemSeleccionado == index ) ? Colors.red[200] : Colors.blueGrey,
         ),
       ),
     );
   }
+}
+
+class _MenuModel with ChangeNotifier{
+  
+  int _itemSeleecionado = 0;
+
+  int get itemSeleccionado => this._itemSeleecionado;
+      set itemSeleccionado( int item ){
+        this._itemSeleecionado = item;
+        notifyListeners();
+      }
+
 }
