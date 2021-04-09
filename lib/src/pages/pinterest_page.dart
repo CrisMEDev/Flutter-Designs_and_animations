@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:backgrounds_custom_painter/src/widgets/pinterest_menu.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PinterestPage extends StatelessWidget {
@@ -7,9 +8,8 @@ class PinterestPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: _PinterestGrid(),
-        ),
+        body: PinterestMenu(),
+        // body: _PinterestGrid(),
       ),
     );
   }
