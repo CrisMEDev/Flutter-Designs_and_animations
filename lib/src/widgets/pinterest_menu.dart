@@ -21,11 +21,59 @@ class PinterestMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
     return Center(
       child: Container(
-        child: Text('Hola pinterest'),
+
+        child: _MenuItems( menuItems: items ),
+
+        width: screenSize.width * 0.75,
+        height: screenSize.height * 0.08,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all( Radius.circular(50.0) ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black87,
+              offset: Offset(2, 2),
+              blurRadius: 10.0,
+              spreadRadius: -0.5
+            )
+          ]
+        ),
       ),
     );
   }
 }
 
+class _MenuItems extends StatelessWidget {
+
+  final List<PinterestButton> menuItems;
+
+  const _MenuItems({this.menuItems});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate( menuItems.length, (index) => _PinterestMenuButton( index, menuItems[index] ) )
+    );
+  }
+}
+
+class _PinterestMenuButton extends StatelessWidget {
+
+  final int index;
+  final PinterestButton item;
+
+  const _PinterestMenuButton(this.index, this.item);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Icon( item.icon ),
+    );
+  }
+}
