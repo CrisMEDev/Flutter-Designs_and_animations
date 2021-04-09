@@ -22,27 +22,41 @@ class PinterestMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final screenSize = MediaQuery.of(context).size;
 
     return Center(
-      child: Container(
+      child: _PinterestMenuBackground( child: _MenuItems( menuItems: items, ), ),
+    );
+  }
+}
 
-        child: _MenuItems( menuItems: items ),
+class _PinterestMenuBackground extends StatelessWidget {
 
-        width: screenSize.width * 0.75,
-        height: screenSize.height * 0.08,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all( Radius.circular(50.0) ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black87,
-              offset: Offset(2, 2),
-              blurRadius: 10.0,
-              spreadRadius: -0.5
-            )
-          ]
-        ),
+  final Widget child;
+
+  const _PinterestMenuBackground({ @required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
+    return Container(
+      
+      child: this.child,
+
+      width: screenSize.width * 0.75,
+      height: screenSize.height * 0.08,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all( Radius.circular(50.0) ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black87,
+            offset: Offset(2, 2),
+            blurRadius: 10.0,
+            spreadRadius: -0.5
+          )
+        ]
       ),
     );
   }
@@ -72,8 +86,17 @@ class _PinterestMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Icon( item.icon ),
+    return GestureDetector(
+      onTap: item.onPressed,
+      behavior: HitTestBehavior.translucent,  // Para el caso que en algunos dispositivos el onTap no funcione bien
+
+      child: Container(
+        child: Icon(
+          item.icon,
+          size: 28.0,
+          color: Colors.blueGrey,
+        ),
+      ),
     );
   }
 }
