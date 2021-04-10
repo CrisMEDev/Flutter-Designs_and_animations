@@ -40,7 +40,12 @@ class _PinterestMenuLocation extends StatelessWidget {
       child: Container(
         width: screenSize.width,
         child: Align(
-          child: PinterestMenu( mostrar: mostrarMenu, ),
+          child: PinterestMenu(
+            mostrar: mostrarMenu,
+            activeColor: Colors.red[600],
+            inactiveColor: Colors.teal[300],
+            backgroundColor: Colors.black26,
+          ),
           alignment: Alignment.center,
         )
       )
