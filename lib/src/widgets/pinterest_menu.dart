@@ -13,6 +13,12 @@ class PinterestButton {
 
 class PinterestMenu extends StatelessWidget {
 
+  final bool mostrar;
+
+  PinterestMenu({
+    this.mostrar = true,
+  });
+
   final List<PinterestButton> items = [
     PinterestButton(icon:  Icons.pie_chart, onPressed: (){ print('Icon pie chart'); } ),
     PinterestButton(icon:  Icons.search, onPressed: (){ print('Icon search'); } ),
@@ -27,11 +33,23 @@ class PinterestMenu extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => new _MenuModel(),
 
-      child: _PinterestMenuBackground(
-        child: _MenuItems( menuItems: items, ),
+      child: AnimatedOpacity(
+        opacity: mostrar ? 1.0 : 0.0,
+        duration: Duration( milliseconds: 250 ),
+        curve: Curves.easeIn,
+
+        child: Visibility(    // Se agrega este widget para que no se pueda interactuar con el menu
+          visible: mostrar,
+          maintainState: true,      // NOTA: Si se desea mantener la animacion se debe mantener el estado tambien, esto
+          maintainAnimation: true,  // tiene un costo de memoria elevado.
+          child: _PinterestMenuBackground(
+            child: _MenuItems( menuItems: items, ),
+          ),
+        ),
       ),
     );
   }
+  
 }
 
 class _PinterestMenuBackground extends StatelessWidget {
