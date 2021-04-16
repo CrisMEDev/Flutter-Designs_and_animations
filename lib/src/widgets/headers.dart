@@ -313,6 +313,19 @@ class _HeaderWavesGradientPainter extends CustomPainter{
 }
 
 class IconHeader extends StatelessWidget {
+
+  final IconData icon;
+  final String titulo, subtitulo;
+  final Color color1, color2;
+
+  const IconHeader({
+    @required this.icon,
+    @required this.titulo,
+    @required this.subtitulo,
+    this.color1 = Colors.grey,
+    this.color2 = Colors.blueGrey
+  });
+
   @override
   Widget build(BuildContext context) {
 
@@ -320,21 +333,21 @@ class IconHeader extends StatelessWidget {
 
     return Stack(
       children: [
-        _IconHeaderBackground(),
+        _IconHeaderBackground( this.color1, this.color2 ),
         Positioned(
           top: -50.0,
           left: -70.0,
-          child: FaIcon( FontAwesomeIcons.plus, size: 250, color: Colors.white.withOpacity(0.2), ),
+          child: FaIcon( this.icon, size: 250, color: Colors.white.withOpacity(0.2), ),
         ),
         Column(
           children: [
             SizedBox(height: 80.0, width: double.infinity,),  // Como los widgets están centrados en base al mas largo se usa
                                                               // el double.infinity aqui
-            Text('Has solicitado', style: TextStyle( fontSize: 20.0, color: colorBlanco )),
+            Text(this.subtitulo, style: TextStyle( fontSize: 20.0, color: colorBlanco )),
             SizedBox(height: 20.0),
-            Text('Asistencia Médica', style: TextStyle( fontSize: 25.0, color: colorBlanco, fontWeight: FontWeight.bold )),
+            Text(this.titulo, style: TextStyle( fontSize: 25.0, color: colorBlanco, fontWeight: FontWeight.bold )),
             SizedBox(height: 20.0),
-            FaIcon( FontAwesomeIcons.plus, size: 70, color: Colors.white)
+            FaIcon( this.icon, size: 70, color: Colors.white)
           ],
         )
       ],
@@ -343,7 +356,14 @@ class IconHeader extends StatelessWidget {
 }
 
 class _IconHeaderBackground extends StatelessWidget {
-  const _IconHeaderBackground();
+
+  final Color color1;
+  final Color color2;
+
+  const _IconHeaderBackground(
+    this.color1,
+    this.color2,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -358,8 +378,8 @@ class _IconHeaderBackground extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color(0xFF526BF6),
-            Color(0xFF67ACF2),
+            this.color1,
+            this.color2,
           ]
         )
       ),
