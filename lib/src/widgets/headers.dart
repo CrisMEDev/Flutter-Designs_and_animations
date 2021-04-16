@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class HeaderCuadrado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -308,5 +310,60 @@ class _HeaderWavesGradientPainter extends CustomPainter{
     return true;
   }
 
+}
+
+class IconHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    final Color colorBlanco = Colors.white.withOpacity(0.7);
+
+    return Stack(
+      children: [
+        _IconHeaderBackground(),
+        Positioned(
+          top: -50.0,
+          left: -70.0,
+          child: FaIcon( FontAwesomeIcons.plus, size: 250, color: Colors.white.withOpacity(0.2), ),
+        ),
+        Column(
+          children: [
+            SizedBox(height: 80.0, width: double.infinity,),  // Como los widgets están centrados en base al mas largo se usa
+                                                              // el double.infinity aqui
+            Text('Has solicitado', style: TextStyle( fontSize: 20.0, color: colorBlanco )),
+            SizedBox(height: 20.0),
+            Text('Asistencia Médica', style: TextStyle( fontSize: 25.0, color: colorBlanco, fontWeight: FontWeight.bold )),
+            SizedBox(height: 20.0),
+            FaIcon( FontAwesomeIcons.plus, size: 70, color: Colors.white)
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class _IconHeaderBackground extends StatelessWidget {
+  const _IconHeaderBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.35,
+      
+      decoration: BoxDecoration(
+        // color: Colors.red,
+        borderRadius: BorderRadius.only( bottomLeft: Radius.circular(80.0) ),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF526BF6),
+            Color(0xFF67ACF2),
+          ]
+        )
+      ),
+    );
+  }
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:backgrounds_custom_painter/src/pages/pinterest_page.dart';
+import 'package:backgrounds_custom_painter/src/pages/emergency_page.dart';
+// import 'package:backgrounds_custom_painter/src/pages/pinterest_page.dart';
 // import 'package:backgrounds_custom_painter/src/pages/slideshows_page.dart';
 // import 'package:backgrounds_custom_painter/labs/slideshow_page.dart';
 // import 'package:backgrounds_custom_painter/src/pages/graficas_circualres_page.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños app',
-      home: PinterestPage(),
+      home: EmergencyPage(),
     );
   }
 }
