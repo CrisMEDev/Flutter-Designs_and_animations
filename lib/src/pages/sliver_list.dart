@@ -5,13 +5,52 @@ class SliverListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: _ListaDeActividades()
+        body: _MainScroll()
       ),
     );
   }
 }
 
+class _MainScroll extends StatelessWidget {
+
+  final items = [
+    _ListItem( nombreColor: 'Orange', color: Color(0xffF08F66) ),
+    _ListItem( nombreColor: 'Family', color: Color(0xffF2A38A) ),
+    _ListItem( nombreColor: 'Subscriptions', color: Color(0xffF7CDD5) ),
+    _ListItem( nombreColor: 'Books', color: Color(0xffFCEBAF) ),
+    _ListItem( nombreColor: 'Orange', color: Color(0xffF08F66) ),
+    _ListItem( nombreColor: 'Family', color: Color(0xffF2A38A) ),
+    _ListItem( nombreColor: 'Subscriptions', color: Color(0xffF7CDD5) ),
+    _ListItem( nombreColor: 'Books', color: Color(0xffFCEBAF) ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      physics: BouncingScrollPhysics(),
+      slivers: [
+
+        SliverAppBar(
+          floating: true,
+          forceElevated: true,
+
+          title: Text('Hola mundo'),
+          backgroundColor: Colors.red,
+        ),
+
+        SliverList(
+          delegate: SliverChildListDelegate([
+            ...items
+          ]),
+        )
+
+      ],
+    );
+  }
+}
+
 class _Titulo extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
 
