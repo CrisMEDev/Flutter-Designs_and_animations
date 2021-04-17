@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:backgrounds_custom_painter/src/pages/emergency_page.dart';
+import 'package:backgrounds_custom_painter/src/pages/sliver_list.dart';
+// import 'package:backgrounds_custom_painter/src/pages/emergency_page.dart';
 // import 'package:backgrounds_custom_painter/src/pages/pinterest_page.dart';
 // import 'package:backgrounds_custom_painter/src/pages/slideshows_page.dart';
 // import 'package:backgrounds_custom_painter/labs/slideshow_page.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños app',
-      home: EmergencyPage(),
+      home: SliverListPage(),
     );
   }
 }
