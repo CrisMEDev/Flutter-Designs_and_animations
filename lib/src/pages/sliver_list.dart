@@ -5,7 +5,7 @@ class SliverListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: _Titulo()
+        body: _ListaDeActividades()
       ),
     );
   }
@@ -50,18 +50,34 @@ class _Titulo extends StatelessWidget {
 
 class _ListaDeActividades extends StatelessWidget {
 
+  final items = [
+    _ListItem( nombreColor: 'Orange', color: Color(0xffF08F66) ),
+    _ListItem( nombreColor: 'Family', color: Color(0xffF2A38A) ),
+    _ListItem( nombreColor: 'Subscriptions', color: Color(0xffF7CDD5) ),
+    _ListItem( nombreColor: 'Books', color: Color(0xffFCEBAF) ),
+    _ListItem( nombreColor: 'Orange', color: Color(0xffF08F66) ),
+    _ListItem( nombreColor: 'Family', color: Color(0xffF2A38A) ),
+    _ListItem( nombreColor: 'Subscriptions', color: Color(0xffF7CDD5) ),
+    _ListItem( nombreColor: 'Books', color: Color(0xffFCEBAF) ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
-      itemCount: 20,
-      itemBuilder: (context, index) => _ListItem(),
+      itemCount: items.length,
+      itemBuilder: (context, index) => items[index],
     );
   }
 }
 
 class _ListItem extends StatelessWidget {
 
+  final String nombreColor;
+  final Color color;
+  
+  const _ListItem({this.nombreColor, this.color});
+  
   @override
   Widget build(BuildContext context) {
 
@@ -70,13 +86,13 @@ class _ListItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(30.0),
       alignment: Alignment.centerLeft,
-      child: Text('data', style: TextStyle( color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24.0 ),),
+      child: Text(this.nombreColor, style: TextStyle( color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24.0 ),),
 
       height: screenSize.height * 0.12,
       width: screenSize.width,
       margin: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: Colors.orange,
+        color: this.color,
         borderRadius: BorderRadius.circular(30.0)
       ),
     );
