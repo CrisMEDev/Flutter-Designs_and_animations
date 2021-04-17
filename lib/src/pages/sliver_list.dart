@@ -5,7 +5,56 @@ class SliverListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: _MainScroll()
+        body: Stack(
+          children: [
+            _MainScroll(),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: _BotonInferior()
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BotonInferior extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
+    return ButtonTheme(
+      minWidth: screenSize.width * 0.90,
+      child: ElevatedButton(
+        onPressed: (){},
+
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Color(0xffED6762)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder> (
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(50))
+            )
+          )
+        ),
+
+        child: Container(
+          height: screenSize.height * 0.1,
+          width: screenSize.width * 0.7,
+          child: Center(
+            child: Text(
+              'CREATE A NEW LIST',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -62,7 +111,7 @@ class _MainScroll extends StatelessWidget {
         SliverList(
           delegate: SliverChildListDelegate([
             ...items,
-            SizedBox( height: MediaQuery.of(context).size.height * 0.20, )
+            SizedBox( height: MediaQuery.of(context).size.height * 0.12, )
           ]),
         )
 
