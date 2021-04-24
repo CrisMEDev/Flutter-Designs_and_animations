@@ -26,14 +26,16 @@ class _ListaOpciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return ListView.separated(
       physics: BouncingScrollPhysics(),
-      separatorBuilder: (context, i) => Divider( color: Colors.blueGrey, ),
+      separatorBuilder: (context, i) => Divider( color: appTheme.primaryColorLight, ),
       itemCount: pageRoutes.length,
       itemBuilder: (context, i) => ListTile(
-        leading: FaIcon( pageRoutes[i].icon, color: Colors.blueGrey, ),
+        leading: FaIcon( pageRoutes[i].icon, color: appTheme.accentColor, ),
         title: Text(pageRoutes[i].titulo),
-        trailing: Icon( Icons.chevron_right, color: Colors.blueGrey, ),
+        trailing: Icon( Icons.chevron_right, color: appTheme.accentColor, ),
         onTap: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => pageRoutes[i].page));
         },
@@ -58,7 +60,7 @@ class _MenuLateral extends StatelessWidget {
               width: double.infinity,
               height: 200,
               child: CircleAvatar(
-                backgroundColor: Colors.cyan[300],
+                backgroundColor: temaProvider.currentTheme.accentColor,
                 child: Text('CM', style: TextStyle( fontSize: 50.0 ),),
               ),
             ),
@@ -68,10 +70,10 @@ class _MenuLateral extends StatelessWidget {
             ),
 
             ListTile(
-              leading: Icon( Icons.lightbulb_outline, color: Colors.deepPurple[100], ),
+              leading: Icon( Icons.lightbulb_outline, color: temaProvider.currentTheme.accentColor, ),
               title: Text('Dark Mode'),
               trailing: Switch.adaptive(
-                activeColor: Colors.blueGrey,
+                activeColor: temaProvider.currentTheme.accentColor,
                 value: temaProvider.darkTheme,
                 onChanged: (switchDM) => temaProvider.darkTheme = switchDM
               ),
@@ -80,10 +82,10 @@ class _MenuLateral extends StatelessWidget {
             Divider(),
 
             ListTile(
-              leading: Icon( Icons.add_to_home_screen, color: Colors.deepPurple[100], ),
+              leading: Icon( Icons.add_to_home_screen, color: temaProvider.currentTheme.accentColor, ),
               title: Text('Custom Theme'),
               trailing: Switch.adaptive(
-                activeColor: Colors.blueGrey,
+                activeColor: temaProvider.currentTheme.accentColor,
                 value: temaProvider.customTheme,
                 onChanged: (switchLM) => temaProvider.customTheme = switchLM
               ),
