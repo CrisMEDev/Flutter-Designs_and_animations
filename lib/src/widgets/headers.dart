@@ -245,6 +245,11 @@ class _HeaderWavesPainter extends CustomPainter{
 }
 
 class HeaderWavesGradient extends StatelessWidget {
+
+  final Color color;
+
+  const HeaderWavesGradient({ @required this.color });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -252,13 +257,18 @@ class HeaderWavesGradient extends StatelessWidget {
       height: double.infinity,
 
       child: CustomPaint(
-        painter: _HeaderWavesGradientPainter(),
+        painter: _HeaderWavesGradientPainter( this.color ),
       ),
     );
   }
 }
 
 class _HeaderWavesGradientPainter extends CustomPainter{
+
+  final Color color;
+
+  _HeaderWavesGradientPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
 
@@ -275,7 +285,7 @@ class _HeaderWavesGradientPainter extends CustomPainter{
 
       colors: [
         Color( 0xFF6D05E8 ),
-        Color( 0xFFC012FF ),
+        this.color, // Color( 0xFFC012FF ),
         Color( 0xFF6D05FA ),
       ],
 

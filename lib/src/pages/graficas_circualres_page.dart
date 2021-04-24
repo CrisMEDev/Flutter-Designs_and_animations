@@ -1,6 +1,8 @@
+import 'package:backgrounds_custom_painter/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:backgrounds_custom_painter/src/widgets/radial_progress.dart';
+import 'package:provider/provider.dart';
 
 class GraficaCircularPage extends StatefulWidget {
   @override
@@ -34,7 +36,7 @@ class _GraficaCircularPageState extends State<GraficaCircularPage> {
                 colorPrimario: Colors.blue,
                 colorSecundario: Colors.grey,),
               CustomRadialProgress(
-                porcentaje: porcentaje,
+                porcentaje: porcentaje * 1.2,
                 colorPrimario: Colors.grey,
                 colorSecundario: Colors.white38,),
             ],
@@ -44,11 +46,11 @@ class _GraficaCircularPageState extends State<GraficaCircularPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomRadialProgress(
-                porcentaje: porcentaje,
+                porcentaje: porcentaje * 1.4,
                 colorPrimario: Colors.deepOrangeAccent,
                 colorSecundario: Colors.deepPurpleAccent,),
               CustomRadialProgress(
-                porcentaje: porcentaje,
+                porcentaje: porcentaje * 1.6,
                 colorPrimario: Colors.black,
                 colorSecundario: Colors.cyan,),
             ],
@@ -74,6 +76,9 @@ class CustomRadialProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Container(
       width: MediaQuery.of(context).size.width * 0.40,
       height: MediaQuery.of(context).size.width * 0.40,
@@ -82,7 +87,7 @@ class CustomRadialProgress extends StatelessWidget {
       child: RadialProgress(
         porcentaje: porcentaje,
         colorPrimario: colorPrimario,
-        colorSecundario: colorSecundario,
+        colorSecundario: ( appTheme.darkTheme ) ? appTheme.currentTheme.textTheme.bodyText1.color : appTheme.currentTheme.primaryColorLight,
         grosorSecundario: 5.0,
         grosorPrimario: 5.0,
       ),

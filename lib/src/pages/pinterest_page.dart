@@ -1,3 +1,4 @@
+import 'package:backgrounds_custom_painter/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,7 @@ class _PinterestMenuLocation extends StatelessWidget {
 
     final bool mostrarMenu = Provider.of<_MenuModel>(context).mostrar;
     final screenSize = MediaQuery.of(context).size;
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
 
     return Positioned(
       bottom: screenSize.height * 0.03,
@@ -49,9 +51,9 @@ class _PinterestMenuLocation extends StatelessWidget {
             ],
 
             mostrar: mostrarMenu,
-            activeColor: Colors.red[600],
-            inactiveColor: Colors.teal[300],
-            backgroundColor: Colors.black26,
+            activeColor: appTheme.accentColor,
+            inactiveColor: appTheme.primaryColorLight,
+            backgroundColor: appTheme.scaffoldBackgroundColor,
           ),
           alignment: Alignment.center,
         )
