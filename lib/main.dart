@@ -1,7 +1,7 @@
 import 'package:backgrounds_custom_painter/src/pages/launcher_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:backgrounds_custom_painter/src/pages/sliver_list.dart';
+// import 'package:backgrounds_custom_painter/src/pages/sliver_list.dart';
 // import 'package:backgrounds_custom_painter/src/pages/emergency_page.dart';
 // import 'package:backgrounds_custom_painter/src/pages/pinterest_page.dart';
 // import 'package:backgrounds_custom_painter/src/pages/slideshows_page.dart';
