@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
  
 void main() => runApp(
   ChangeNotifierProvider(
-    create: (_) => new ThemeChanger(),
+    create: (_) => new ThemeChanger( 1 ),   // Almacenar este entero en las preferencias de usuario para mantener el tema del usuario
     child: MyApp()
   )
 );
@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Diseños app',
       home: LauncherPage(),
+
+      theme: Provider.of<ThemeChanger>(context).currentTheme,
     );
   }
 }
