@@ -1,3 +1,4 @@
+import 'package:backgrounds_custom_painter/src/pages/launcher_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:backgrounds_custom_painter/src/pages/sliver_list.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños app',
-      home: SliverListPage(),
+      home: LauncherPage(),
     );
   }
 }
