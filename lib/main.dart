@@ -1,5 +1,7 @@
 import 'package:backgrounds_custom_painter/src/pages/launcher_page.dart';
+import 'package:backgrounds_custom_painter/src/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // import 'package:backgrounds_custom_painter/src/pages/sliver_list.dart';
 // import 'package:backgrounds_custom_painter/src/pages/emergency_page.dart';
@@ -11,7 +13,12 @@ import 'package:flutter/material.dart';
 // import 'package:backgrounds_custom_painter/src/retos/cuadrado_animado_page.dart';
 // import 'package:backgrounds_custom_painter/labs/circular_progress_page.dart';
  
-void main() => runApp(MyApp());
+void main() => runApp(
+  ChangeNotifierProvider(
+    create: (_) => new ThemeChanger(),
+    child: MyApp()
+  )
+);
  
 class MyApp extends StatelessWidget {
   @override

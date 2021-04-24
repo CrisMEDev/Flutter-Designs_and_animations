@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:backgrounds_custom_painter/src/routes/routes.dart';
+import 'package:backgrounds_custom_painter/src/theme/theme.dart';
 
 class LauncherPage extends StatelessWidget {
   @override
@@ -44,6 +46,9 @@ class _ListaOpciones extends StatelessWidget {
 class _MenuLateral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final ThemeChanger temaProvider = Provider.of<ThemeChanger>(context);
+
     return Drawer(
       child: Container(
         child: Column(
@@ -67,8 +72,8 @@ class _MenuLateral extends StatelessWidget {
               title: Text('Dark Mode'),
               trailing: Switch.adaptive(
                 activeColor: Colors.blueGrey,
-                value: true,
-                onChanged: (switchDM) {}
+                value: temaProvider.darkTheme,
+                onChanged: (switchDM) => temaProvider.darkTheme = switchDM
               ),
             ),
 
@@ -79,8 +84,8 @@ class _MenuLateral extends StatelessWidget {
               title: Text('Custom Theme'),
               trailing: Switch.adaptive(
                 activeColor: Colors.blueGrey,
-                value: true,
-                onChanged: (switchLM) {}
+                value: temaProvider.customTheme,
+                onChanged: (switchLM) => temaProvider.customTheme = switchLM
               ),
             ),
 
