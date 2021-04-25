@@ -1,5 +1,5 @@
-import 'package:backgrounds_custom_painter/labs/slideshow_page.dart';
 import 'package:flutter/material.dart';
+import 'package:backgrounds_custom_painter/src/pages/slideshows_page.dart';
 
 
 class LayoutModel with ChangeNotifier {
