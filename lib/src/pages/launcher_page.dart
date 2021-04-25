@@ -8,9 +8,13 @@ import 'package:backgrounds_custom_painter/src/theme/theme.dart';
 class LauncherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: appTheme.currentTheme.backgroundColor,
           title: Text('Diseños en flutter'),
         ),
 
