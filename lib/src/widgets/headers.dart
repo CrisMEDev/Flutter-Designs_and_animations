@@ -340,6 +340,10 @@ class IconHeader extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final Color colorBlanco = Colors.white.withOpacity(0.7);
+    final screenSize = MediaQuery.of(context).size;
+    double ancho;
+    
+    ( screenSize.width > 500 ) ? ancho = screenSize.width * 0.70 : ancho = screenSize.width;
 
     return Stack(
       children: [
@@ -347,17 +351,17 @@ class IconHeader extends StatelessWidget {
         Positioned(
           top: -50.0,
           left: -70.0,
-          child: FaIcon( this.icon, size: 250, color: Colors.white.withOpacity(0.2), ),
+          child: FaIcon( this.icon, size: ancho * 0.65, color: Colors.white.withOpacity(0.2), ),
         ),
         Column(
           children: [
             SizedBox(height: 80.0, width: double.infinity,),  // Como los widgets están centrados en base al mas largo se usa
                                                               // el double.infinity aqui
-            Text(this.subtitulo, style: TextStyle( fontSize: 20.0, color: colorBlanco )),
+            Text(this.subtitulo, style: TextStyle( fontSize: ancho * 0.06, color: colorBlanco )),
             SizedBox(height: 20.0),
-            Text(this.titulo, style: TextStyle( fontSize: 25.0, color: colorBlanco, fontWeight: FontWeight.bold )),
+            Text(this.titulo, style: TextStyle( fontSize: ancho * 0.06 + 5, color: colorBlanco, fontWeight: FontWeight.bold )),
             SizedBox(height: 20.0),
-            FaIcon( this.icon, size: 70, color: Colors.white)
+            FaIcon( this.icon, size: ancho * 0.2, color: Colors.white)
           ],
         )
       ],

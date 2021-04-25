@@ -36,11 +36,23 @@ class _PinterestMenuLocation extends StatelessWidget {
     final bool mostrarMenu = Provider.of<_MenuModel>(context).mostrar;
     final screenSize = MediaQuery.of(context).size;
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    double ancho;
+    bool isLarge;
+
+    if ( screenSize.width > 500 ){
+      isLarge =  true;
+      ancho = screenSize.width - (screenSize.width * 0.40);
+    }
+    else {
+      isLarge = false;
+      ancho = screenSize.width;
+    }
 
     return Positioned(
       bottom: screenSize.height * 0.03,
+      left: isLarge ? ancho / 10 : null,
       child: Container(
-        width: screenSize.width,
+        width: ancho,
         child: Align(
           child: PinterestMenu(
             items: [
@@ -99,14 +111,23 @@ class __PinterestGridState extends State<_PinterestGrid> {
 
   @override
   Widget build(BuildContext context) {
+
+    int count;
+
+    if ( MediaQuery.of(context).size.width > 500  ){
+      count = 3;
+    } else{
+      count = 2;
+    }
+
     return StaggeredGridView.countBuilder(
       controller: controller,
 
-      crossAxisCount: 4,
+      crossAxisCount: count,
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) => _PinterestItem( index: index, ),
       staggeredTileBuilder: (int index) =>
-          StaggeredTile.count(2, index.isEven ? 2 : 4),
+          StaggeredTile.count(1, index.isEven ? 1 : 2),
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 8.0,
     );

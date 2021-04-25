@@ -37,8 +37,9 @@ class BotonGrandeIcono extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox( height: size.height * 0.18, width: size.width * 0.10, ),
+              SizedBox( height: size.height * 0.20, width: size.width * 0.10, ),
               FaIcon( this.icon, color: this.primaryColor, size: 40.0, ),
               SizedBox( width: size.width * 0.05, ),
               Expanded(child: Text(this.texto, style: TextStyle( color: Colors.white, fontSize: 18.0 ),)),
@@ -65,6 +66,7 @@ class _BotonGrandeBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.bottomCenter,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15.0),
 

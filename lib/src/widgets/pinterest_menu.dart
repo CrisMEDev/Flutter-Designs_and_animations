@@ -75,13 +75,16 @@ class _PinterestMenuBackground extends StatelessWidget {
 
     final screenSize = MediaQuery.of(context).size;
     final menuModel = Provider.of<_MenuModel>(context);
+    bool isLarge;
+
+    ( screenSize.width > screenSize.height ) ? isLarge = true : isLarge = false;
 
     return Container(
       
       child: this.child,
 
-      width: screenSize.width * 0.75,
-      height: screenSize.height * 0.08,
+      width: isLarge ? screenSize.height * 0.75 : screenSize.width * 0.75,
+      height: isLarge ? screenSize.width * 0.08 : screenSize.height * 0.08,
       decoration: BoxDecoration(
         color: menuModel.backgroundColor,
         borderRadius: BorderRadius.all( Radius.circular(50.0) ),

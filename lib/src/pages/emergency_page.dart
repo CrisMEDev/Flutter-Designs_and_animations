@@ -20,6 +20,9 @@ class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    bool isLarge;
+    (MediaQuery.of(context).size.height > 400) ? isLarge = true : isLarge = false;
+
     final items = <_ItemBoton>[
       new _ItemBoton( FontAwesomeIcons.carCrash, 'Motor Accident', Color(0xff6989F5), Color(0xff906EF5) ),
       new _ItemBoton( FontAwesomeIcons.plus, 'Medical Emergency', Color(0xff66A9F2), Color(0xff536CF6) ),
@@ -56,11 +59,12 @@ class EmergencyPage extends StatelessWidget {
             ListView(
               physics: BouncingScrollPhysics(),
               children: [
-                SizedBox( height: MediaQuery.of(context).size.height * 0.35, ),
+                SizedBox( height: isLarge ? MediaQuery.of(context).size.height * 0.35 : 10.0, ),
                 ...itemMap   // Operador spread para separar cada uno de los elementos
               ],
             ),
-            _Encabezado()
+            if (isLarge)
+              _Encabezado()
           ],
         ),
       ),
