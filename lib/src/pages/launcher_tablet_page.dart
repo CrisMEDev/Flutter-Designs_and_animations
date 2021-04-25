@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:backgrounds_custom_painter/src/models/layout_model.dart';
 import 'package:backgrounds_custom_painter/src/routes/routes.dart';
 import 'package:backgrounds_custom_painter/src/theme/theme.dart';
 
@@ -10,6 +11,8 @@ class LauncherTabletPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final appTheme = Provider.of<ThemeChanger>(context);
+    final layoutModel = Provider.of<LayoutModel>(context);
+    final screenSize = MediaQuery.of(context).size;
 
     return SafeArea(
       child: Scaffold(
@@ -20,7 +23,28 @@ class LauncherTabletPage extends StatelessWidget {
 
         drawer: _MenuLateral(),
 
-        body: _ListaOpciones()
+        body: Row(
+          children: [
+
+            Container(
+              width: screenSize.width * 0.3,
+              height: double.infinity,
+              child: _ListaOpciones(),
+            ),
+
+            Container(  // Linea divisoria
+              width: 1.0,
+              height: double.infinity,
+              color: ( appTheme.darkTheme ) ? Colors.grey : appTheme.currentTheme.accentColor,
+            ),
+
+            Expanded(
+              child: layoutModel.currentPage,
+            ),
+
+          ],
+        ),
+        // body: _ListaOpciones()
       ),
     );
   }
@@ -31,6 +55,7 @@ class _ListaOpciones extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    final layoutModel = Provider.of<LayoutModel>(context);
 
     return ListView.separated(
       physics: BouncingScrollPhysics(),
@@ -41,7 +66,8 @@ class _ListaOpciones extends StatelessWidget {
         title: Text(pageRoutes[i].titulo),
         trailing: Icon( Icons.chevron_right, color: appTheme.accentColor, ),
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => pageRoutes[i].page));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => pageRoutes[i].page));
+          layoutModel.currentPage = pageRoutes[i].page;
         },
       ),
     );

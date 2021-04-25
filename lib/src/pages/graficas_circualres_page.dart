@@ -15,6 +15,9 @@ class _GraficaCircularPageState extends State<GraficaCircularPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon( Icons.refresh ),
@@ -80,8 +83,8 @@ class CustomRadialProgress extends StatelessWidget {
     final appTheme = Provider.of<ThemeChanger>(context);
 
     return Container(
-      width: MediaQuery.of(context).size.width * 0.40,
-      height: MediaQuery.of(context).size.width * 0.40,
+      width:  (MediaQuery.of(context).size.width * 0.60) * 0.40,
+      height: (MediaQuery.of(context).size.width * 0.60) * 0.40,
       // color: Colors.red,
 
       child: RadialProgress(
