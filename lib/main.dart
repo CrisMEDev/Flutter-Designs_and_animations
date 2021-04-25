@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:backgrounds_custom_painter/src/pages/launcher_tablet_page.dart';
 import 'package:backgrounds_custom_painter/src/pages/launcher_page.dart';
 import 'package:backgrounds_custom_painter/src/theme/theme.dart';
 // import 'package:backgrounds_custom_painter/src/pages/sliver_list.dart';
@@ -29,11 +30,19 @@ class MyApp extends StatelessWidget {
       home: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {  // Al cambiar la orientacion se dispara este builder
 
-          print(orientation);
-          
-          return Container(
-            child: LauncherPage(),
-          );
+          // print(orientation);
+          final screenSize = MediaQuery.of(context).size;
+
+          if ( screenSize.width > 500 ){
+            return LauncherTabletPage();
+          } else {
+            return LauncherPage();
+          }
+
+
+          // return Container(
+          //   child: LauncherPage(),
+          // );
         },
       ),
 

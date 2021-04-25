@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:backgrounds_custom_painter/src/routes/routes.dart';
 import 'package:backgrounds_custom_painter/src/theme/theme.dart';
 
-class LauncherPage extends StatelessWidget {
+class LauncherTabletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
@@ -15,7 +15,7 @@ class LauncherPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: appTheme.currentTheme.backgroundColor,
-          title: Text('Diseños en flutter - Phone'),
+          title: Text('Diseños en flutter - Tablet'),
         ),
 
         drawer: _MenuLateral(),
