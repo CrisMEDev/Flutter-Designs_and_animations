@@ -11,11 +11,10 @@ class SlideshowPage extends StatelessWidget {
 
     final temaProvider = Provider.of<ThemeChanger>(context);
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: (!temaProvider.darkTheme) ? temaProvider.currentTheme.accentColor : Colors.purple[100],
-        body: Column(
-          children: [
+    bool isLarge;
+    (MediaQuery.of(context).size.height > 500) ? isLarge = true : isLarge = false;
+
+    final children = [
             Expanded(
               flex: 7,
               child: Slideshow(
@@ -48,8 +47,19 @@ class SlideshowPage extends StatelessWidget {
                 ],
               ),
             )
-          ],
-        )
+          ];
+
+
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: (!temaProvider.darkTheme) ? temaProvider.currentTheme.accentColor : Colors.purple[100],
+        body: isLarge
+              ? Column(
+                children: children,
+              )
+              : Row(
+                children: children,
+              )
       ),
     );
   }
